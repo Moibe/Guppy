@@ -14,6 +14,7 @@ import "../cast/CastU256U32.sol";
 /// The rewarded amount will be a fixed wei per second, distributed proportionally to token holders
 /// by the size of their holdings.
 contract ERC20Rewards is AccessControl, ERC20Permit {
+    bytes32 public constant URI_SETTER_ROLE = keccak256("REWARD_SETTER_ROLE");
     using MinimalTransferHelper for IERC20;
     using CastU256U32 for uint256;
     using CastU256U128 for uint256;
@@ -48,6 +49,8 @@ contract ERC20Rewards is AccessControl, ERC20Permit {
     constructor(string memory name, string memory symbol, uint8 decimals, IERC20 rewardsToken_)
         ERC20Permit(name, symbol, decimals)
     { 
+        _grantRole(DEFAULT_ADMIN_ROLE, msg.sender);
+        _grantRole(REWARD_SETTER_ROLE, msg.sender);
         rewardsToken = rewardsToken_;
     }
 
