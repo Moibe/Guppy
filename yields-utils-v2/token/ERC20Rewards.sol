@@ -62,7 +62,7 @@ contract ERC20Rewards is AccessControl, ERC20Permit {
     /// @dev Set a rewards schedule
     function setRewards(uint32 start, uint32 end, uint96 rate)
         external
-        auth(0x7bF0f557d1A544a9cFD95eb2BF8906918Be22674)
+        auth()
     {
         require(
             start <= end,
